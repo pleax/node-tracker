@@ -1,5 +1,6 @@
 var assert = require('assert');
 var handlers = require('../lib/handlers.js');
+var formatters = require('../lib/formatters.js');
 var utils = require('../lib/utils.js');
 var mocks = require('./mocks.js');
 
@@ -12,6 +13,9 @@ var generateAnnounceUrl = function(options) {
   tokens.push("uploaded=" + (options.uploaded || 0));
   tokens.push("downloaded=" + (options.downloaded || 0));
   tokens.push("left=" + (options.left || 0));
+  if (options.compact != null) {
+    tokens.push("compact=" + (options.compact ? '1' : '0'));
+  }
   if (options.event) {
     tokens.push("event=" + options.event);
   }
@@ -112,4 +116,25 @@ var mockPool = function(options) {
   });
   handlers.announce(ctx);
   assert.ok(peersRequested);
+})();
+
+(function() {
+  var responseText = "";
+  var ctx = mocks.mockContext({
+    url: generateAnnounceUrl(),
+    connection: { remoteAddress: "192.0.32.10" }
+  }, {
+    write: function(data, enc) { responseText += data; },
+    end: function(data, enc) { if (data) responseText += data; }
+  });
+  var pool = handlers.announce.pool = mockPool({
+    getPeers: function() {
+      return [
+        { id: "peerId-8901234567890", ip: "192.0.32.10", port: 6337 },
+        { id: "peerId-8901234567890", ip: "192.0.32.10", port: 6339 }
+      ];
+    }
+  });
+  handlers.announce(ctx);
+  assert.equal(responseText, formatters.announce(pool.getInfo(), pool.getPeers()));
 })();
