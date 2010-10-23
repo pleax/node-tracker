@@ -138,3 +138,24 @@ var mockPool = function(options) {
   handlers.announce(ctx);
   assert.equal(responseText, formatters.announce(pool.getInfo(), pool.getPeers()));
 })();
+
+(function() {
+  var responseText = "";
+  var ctx = mocks.mockContext({
+    url: generateAnnounceUrl({ compact: true }),
+    connection: { remoteAddress: "192.0.32.10" }
+  }, {
+    write: function(data, enc) { responseText += data; },
+    end: function(data, enc) { if (data) responseText += data; }
+  });
+  var pool = handlers.announce.pool = mockPool({
+    getPeers: function() {
+      return [
+        { id: "peerId-8901234567890", ip: "192.0.32.10", port: 6337 },
+        { id: "peerId-8901234567890", ip: "192.0.32.10", port: 6339 }
+      ];
+    }
+  });
+  handlers.announce(ctx);
+  assert.equal(responseText, formatters.announce(pool.getInfo(), pool.getPeers(), true));
+})();
