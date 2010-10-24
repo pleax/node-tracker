@@ -3,3 +3,4 @@ require('./utils.js');
 require('./dispatcher.js');
 require('./formatters.js');
 require('./handlers.js');
+require('./pool.js');
