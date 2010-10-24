@@ -1,0 +1,5 @@
+BitTorrent Tracker implemented with node.js
+
+Running
+
+    $ node lib/tracker.js
