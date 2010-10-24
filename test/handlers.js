@@ -67,6 +67,21 @@ var mockPool = function(options) {
 })();
 
 (function() {
+  var rightEncoding = true;
+  var validateEncoding = function(data, enc) { if (enc != 'ascii') rightEncoding = false; }
+  var ctx = mocks.mockContext({
+    url: generateAnnounceUrl(),
+    connection: { remoteAddress: "192.0.32.10" }
+  }, {
+    write: validateEncoding,
+    end: validateEncoding
+  });
+  handlers.announce.pool = mockPool();
+  handlers.announce(ctx);
+  assert.ok(rightEncoding);
+})();
+
+(function() {
   var updateFired = false;
   var ctx = mocks.mockContext({
     url: generateAnnounceUrl(),
