@@ -130,8 +130,8 @@ var mockPool = function(options) {
   var pool = handlers.announce.pool = mockPool({
     getPeers: function() {
       return [
-        { id: "peerId-8901234567890", ip: "192.0.32.10", port: 6337 },
-        { id: "peerId-8901234567890", ip: "192.0.32.10", port: 6339 }
+        { id: "peer-stub-1-34567890", ip: "192.0.32.10", port: 6337 },
+        { id: "peer-stub-2-34567890", ip: "192.0.32.10", port: 6339 }
       ];
     }
   });
@@ -151,8 +151,8 @@ var mockPool = function(options) {
   var pool = handlers.announce.pool = mockPool({
     getPeers: function() {
       return [
-        { id: "peerId-8901234567890", ip: "192.0.32.10", port: 6337 },
-        { id: "peerId-8901234567890", ip: "192.0.32.10", port: 6339 }
+        { id: "peer-stub-1-34567890", ip: "192.0.32.10", port: 6337 },
+        { id: "peer-stub-2-34567890", ip: "192.0.32.10", port: 6339 }
       ];
     }
   });
