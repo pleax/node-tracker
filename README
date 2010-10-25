@@ -3,3 +3,13 @@ BitTorrent Tracker implemented with node.js
 Running
 
     $ node lib/tracker.js
+
+Running tests
+
+  * all in batch
+
+    $ node test/suite.js
+
+  * or individually
+
+    $ node test/test-{module_name}.js
