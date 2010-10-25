@@ -1,5 +1,11 @@
 BitTorrent Tracker implemented with node.js
 
+  It was initially implemented in two days on Saint-Petersburg's HackDay #9
+  event. Later code was cleaned up.
+
+  It is still in raw prototype stage, but it seems that announces are handled
+  correctly for both compact and default modes.
+
 Running
 
     $ node lib/tracker.js
