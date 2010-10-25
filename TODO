@@ -1,0 +1,7 @@
+
+ * Validation of parameters in announce handler. E.g. info_hash should be
+   exactly 20 bytes, etc., etc.
+
+ * Config to store listening port, announce interval, etc.
+
+ * Scrape handler.
