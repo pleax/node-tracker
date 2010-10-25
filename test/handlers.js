@@ -32,7 +32,6 @@ var mockPool = function(options) {
   var options = options || {};
   return {
     update: options.update || utils.noop,
-    expire: options.expire || utils.noop,
     getInfo: options.getInfo || function() {
       return { complete: 0, incomplete: 0 };
     },
@@ -92,19 +91,6 @@ var mockPool = function(options) {
   });
   handlers.announce(ctx);
   assert.ok(updateFired);
-})();
-
-(function() {
-  var expireFired = false;
-  var ctx = mocks.mockContext({
-    url: generateAnnounceUrl(),
-    connection: { remoteAddress: "192.0.32.10" }
-  });
-  handlers.announce.pool = mockPool({
-    expire: function() { expireFired = true; }
-  });
-  handlers.announce(ctx);
-  assert.ok(expireFired);
 })();
 
 (function() {
